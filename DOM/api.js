@@ -15,3 +15,22 @@ export const getPokemonByName = (name)=>{
     })
     return result;
 }
+
+export const getZwarriorByName = (name) =>{
+    let result = new Promise((resolve, reject) =>{
+        if(name === undefined){
+            reject ({error: "No pasaste el nombre del Guerrero Z"});
+        } else {
+            const requestOptions = {
+                method: "GET",
+                redirect: "follow"
+              };
+              
+              fetch(`https://dragonball-api.com/api/characters?name=${name}`, requestOptions)
+                .then((response) => response.json())
+                .then((result) => resolve(result))
+                .catch((error) => console.error(error));
+        }
+    })
+    return result;
+}
