@@ -8,6 +8,23 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <form id="character-form">
+        <label for="category">Seleccionar categoría:</label>
+        <select id="category">
+            <option value="pokemon">Pokémon</option>
+            <option value="rickmorty">Rick & Morty</option>
+            <option value="zwarrior">Dragon Ball Z</option>
+        </select>
+      
+        <label for="character-input">Nombre o Número del Personaje:</label>
+        <input type="text" id="character-input" placeholder="Ingrese el nombre o número" value="charmander" required/>
+      
+        <button type="submit">Buscar</button>
+      </form>
+      
+
+      <div id="cards-container" class="cards-container"></div>
+      
     <script type="module" src="main.js"></script>
 </body>
 </html>

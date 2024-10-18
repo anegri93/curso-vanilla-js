@@ -1,181 +1,88 @@
 import { getPokemonByName, getZwarriorByName, getRickAndMortyById } from "./api.js";
 
-let cardsContainer = document.createElement("div");
-cardsContainer.className = "cards-container"; 
+const cardsContainer = document.getElementById("cards-container");
 
-document.body.appendChild(cardsContainer);
+function createCard(data, excludedProperties = [], imageProperty = "image", nameProperty = "name") {
+    let div = document.createElement("div");
+    div.className = "card";
+    let lista = ``;
 
-getPokemonByName("charmander").then(result => {
-    if(result.name){
-        let div = document.createElement("div");
-        div.className = "card";
-        let lista = ``;
-
-        result.abilities.forEach((item, index) => {
-            lista += `<li><strong>Habilidad ${index+1}</strong>: ${item.ability.name}</li>`
-        });
+    Object.keys(data).forEach(property =>{
+        if(!excludedProperties.includes(property)){
+            lista += `<li><strong>${property}</strong>: ${data[property]}</li>`;
+        }
+    })
         
-        div.innerHTML = `
-        <div class="card">
-            <img src="${result.sprites.front_default}"/>
-            <h1 class="tittle">${result.name}</h1>
-            <ul>
-                ${lista}
-            </ul>
-        </div>`;  
-        cardsContainer.appendChild(div);
+    div.innerHTML=`
+    <div class = "card">
+        <img src="${data[imageProperty]}"/>
+        <h1 class="tittle">${data[nameProperty]}</h1>
+        <ul>
+            ${lista}
+        </ul>
+    </div>
+    `;
+    cardsContainer.appendChild(div);
+}
+
+function createPokemonCard(pokemon) {
+    let div = document.createElement("div");
+    div.className = "card";
+    let lista = ``;
+
+    // Mostrar habilidades (abilities)
+    if (pokemon.abilities) {
+        lista += `<li><strong>Habilidades:</strong> ${pokemon.abilities.map(a => a.ability.name).join(', ')}</li>`;
     }
-}).catch(error => {
-    console.log(error);
-})
 
-getPokemonByName("charmeleon").then(result=>{
-    if(result.name){
-        let div = document.createElement("div");
-        div.className = "card";
-        let lista = ``;
-
-        result.abilities.forEach((item, index) => {
-            lista += `<li><strong>Habilidad ${index+1}</strong>: ${item.ability.name}</li>`
-        });
-        
-        div.innerHTML = `
-        <div class="card">
-            <img src="${result.sprites.front_default}"/>
-            <h1 class="tittle">${result.name}</h1>
-            <ul>
-                ${lista}
-            </ul>
-        </div>`;  
-        cardsContainer.appendChild(div);
+    // Mostrar movimientos (moves)
+    if (pokemon.moves) {
+        lista += `<li><strong>Movimientos:</strong> ${pokemon.moves.slice(0, 5).map(m => m.move.name).join(', ')}</li>`; // Mostrar solo los primeros 5 movimientos
     }
-}).catch(error => {
-    console.log(error);
-})
 
-getZwarriorByName("Goku").then(result => {
-    if (result[0].name) {
-        const warrior = result[0];        
-        let div = document.createElement("div");
-        div.className = "card";
-        let lista = ``
+    // Verificar que la imagen esté disponible
+    let imageUrl = pokemon.sprites && pokemon.sprites.front_default ? pokemon.sprites.front_default : 'https://via.placeholder.com/150';
 
-        const excludedProperties = ['id','name','image','deletedAt','description']
+    // Generar el contenido HTML del card
+    div.innerHTML = `
+    <div class="card">
+        <img src="${imageUrl}" />
+        <h1 class="tittle">${pokemon.name}</h1>
+        <ul>
+            ${lista}
+        </ul>
+    </div>`;
 
-        Object.keys(warrior).forEach(property => {
-            if(!excludedProperties.includes(property))
-                lista += `<li><strong>${property}:</strong> ${warrior[property]}</li>`;
-        })
+    cardsContainer.appendChild(div);
+}
 
+const handleSearch = (category, query) =>{
+    cardsContainer.innerHTML = "";
 
-        div.innerHTML = `
-        <div class="card">
-            <img src="${warrior.image}"/>
-            <h1 class="tittle">${warrior.name}</h1>
-                <ul>
-                    ${lista}
-                </ul>
-        </div>`;
-        cardsContainer.appendChild(div);
-    }
-}).catch(error => {
-    console.error("Error:", error);
-    let errorDiv = document.createElement("div");
-    errorDiv.innerHTML = `<p>Hubo un error al buscar el Guerrero Z</p>`;
-    document.body.appendChild(errorDiv);
-});
-
-getZwarriorByName("Gohan").then(result => {
-    if (result[0].name) {
-        const warrior = result[0];        
-        let div = document.createElement("div");
-        div.className = "card";
-        let lista = ``
-
-        const excludedProperties = ['id','name','image','deletedAt','description']
-
-        Object.keys(warrior).forEach(property => {
-            if(!excludedProperties.includes(property))
-                lista += `<li><strong>${property}:</strong> ${warrior[property]}</li>`;
-        })
-
-        div.innerHTML = `
-        <div class="card">
-            <img src="${warrior.image}"/>
-            <h1 class="tittle">${warrior.name}</h1>
-                <ul>
-                    ${lista}
-                </ul>
-        </div>`;
-        cardsContainer.appendChild(div);
-    }
-}).catch(error => {
-    console.error("Error:", error);
-    let errorDiv = document.createElement("div");
-    errorDiv.innerHTML = `<p>Hubo un error al buscar el Guerrero Z</p>`;
-    document.body.appendChild(errorDiv);
-});
-
-getRickAndMortyById("1").then(result => {
-    if (result.name) {
-        const character = result;
-        let div = document.createElement("div");
-        div.className = "card";
-        let lista = ``;
-
-        const excludedProperties = ['id','episode', 'location', 'origin', 'image', 'url', 'created','type'];
-
-        Object.keys(character).forEach(property =>{
-            if (!excludedProperties.includes(property)) {
-                lista += `<li><strong>${property}:</strong> ${character[property]}</li>`;
+    if(category === "pokemon"){
+        getPokemonByName(query).then(result =>{
+            if(result.name){
+                createPokemonCard(result, ["id","name","sprites"], "sprites.front_default", "name")           
             }
-        })
-
-        div.innerHTML = `
-        <div class="card">
-            <img src="${result.image}"/>
-            <h1 class="tittle">${result.name}</h1>
-                <ul>
-                    ${lista}
-                </ul>
-        </div>`;
-        cardsContainer.appendChild(div);
-    }
-}).catch(error => {
-    console.error("Error:", error);
-    let errorDiv = document.createElement("div");
-    errorDiv.innerHTML = `<p>Hubo un error al buscar el Guerrero Z</p>`;
-    document.body.appendChild(errorDiv);
-});
-
-getRickAndMortyById("2").then(result => {
-    if (result.name) {
-        const character = result;
-        let div = document.createElement("div");
-        div.className = "card";
-        let lista = ``;
-
-        const excludedProperties = ['id','episode', 'location', 'origin', 'image', 'url', 'created','type'];
-
-        Object.keys(character).forEach(property =>{
-            if (!excludedProperties.includes(property)) {
-                lista += `<li><strong>${property}:</strong> ${character[property]}</li>`;
+        }).catch(error=> console.log(error));
+    } else if (category === "zwarrior"){
+        getZwarriorByName(query).then(result =>{
+            if(result[0].name){
+                createCard(result[0],["id", "name", "image", "deletedAt", "description"], "image", "name");
             }
-        })
-
-        div.innerHTML = `
-        <div class="card">
-            <img src="${result.image}"/>
-            <h1 class="tittle">${result.name}</h1>
-                <ul>
-                    ${lista}
-                </ul>
-        </div>`;
-        cardsContainer.appendChild(div);
+        }).catch(error=> console.log(error));
+    }else if (category === "rickmorty"){
+        getRickAndMortyById(query).then(result =>{
+            if(result.name){
+                createCard(result, ["id", "episode", "location", "origin", "image", "url", "created", "type"], "image", "name")
+            }
+        }).catch(error=> console.log(error));
     }
-}).catch(error => {
-    console.error("Error:", error);
-    let errorDiv = document.createElement("div");
-    errorDiv.innerHTML = `<p>Hubo un error al buscar el Guerrero Z</p>`;
-    document.body.appendChild(errorDiv);
+};
+
+document.getElementById("character-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const category = document.getElementById("category").value;
+    const query = document.getElementById("character-input").value.trim(); 
+    handleSearch(category, query);
 });
