@@ -21,7 +21,7 @@ Una aplicación web que permite buscar y visualizar información de personajes d
 
 1. Clona este repositorio:
 ```bash
-git clone [URL-del-repositorio]
+git clone https://github.com/anegri93/curso-vanilla-js.git
 ```
 
 2. Navega al directorio del proyecto:
@@ -105,10 +105,6 @@ La aplicación muestra los siguientes datos para cada tipo de personaje:
 3. Realiza tus cambios y haz commit (`git commit -m 'Añade nueva característica'`)
 4. Haz Push a la rama (`git push origin feature/nueva-caracteristica`)
 5. Abre un Pull Request
-
-## ⚖️ Licencia
-
-Este proyecto está bajo la Licencia MIT - mira el archivo `LICENSE.md` para detalles
 
 ## ✨ Autor
 
