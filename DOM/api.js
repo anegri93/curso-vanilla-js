@@ -34,3 +34,22 @@ export const getZwarriorByName = (name) =>{
     })
     return result;
 }
+
+export const getRickAndMortyById = (id) =>{
+    let result = new Promise((resolve, reject) =>{
+        if(id === undefined){
+            reject ({error: "Id de personaje inválido"});
+        } else {
+            const requestOptions = {
+                method: "GET",
+                redirect: "follow"
+              };
+              
+              fetch(`https://rickandmortyapi.com/api/character/${id}`, requestOptions)
+                .then((response) => response.json())
+                .then((result) => resolve(result))
+                .catch((error) => console.error(error));
+        }
+    })
+    return result;
+}
