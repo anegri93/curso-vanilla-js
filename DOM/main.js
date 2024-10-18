@@ -30,20 +30,18 @@ function createPokemonCard(pokemon) {
     div.className = "card";
     let lista = ``;
 
-    // Mostrar habilidades (abilities)
     if (pokemon.abilities) {
         lista += `<li><strong>Habilidades:</strong> ${pokemon.abilities.map(a => a.ability.name).join(', ')}</li>`;
     }
 
-    // Mostrar movimientos (moves)
+
     if (pokemon.moves) {
         lista += `<li><strong>Movimientos:</strong> ${pokemon.moves.slice(0, 5).map(m => m.move.name).join(', ')}</li>`; // Mostrar solo los primeros 5 movimientos
     }
 
-    // Verificar que la imagen esté disponible
+
     let imageUrl = pokemon.sprites && pokemon.sprites.front_default ? pokemon.sprites.front_default : 'https://via.placeholder.com/150';
 
-    // Generar el contenido HTML del card
     div.innerHTML = `
     <div class="card">
         <img src="${imageUrl}" />
