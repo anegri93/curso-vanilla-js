@@ -1,0 +1,11 @@
+.tittle{
+    color:red;
+    font-size: 2em
+}
+
+.card{
+    background: #cdcdcd;
+    width: 11em;
+    padding: 1em;
+    border-radius: 0.5em
+}
