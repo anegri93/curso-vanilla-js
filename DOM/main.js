@@ -1,10 +1,11 @@
-import { getPokemonByName, getZwarriorByName, getRickAndMortyById } from "./api.js";
+import { URLS, get } from "./api.js";
 
 const cardsContainer = document.getElementById("cards-container");
+let div = document.createElement("div");
+document.body.appendChild(div);
 
 function createCard(data, excludedProperties = [], imageProperty = "image", nameProperty = "name") {
-    let div = document.createElement("div");
-    div.className = "card";
+    div.className = "cards-container";
     let lista = ``;
 
     Object.keys(data).forEach(property =>{
@@ -22,12 +23,10 @@ function createCard(data, excludedProperties = [], imageProperty = "image", name
         </ul>
     </div>
     `;
-    cardsContainer.appendChild(div);
+
 }
 
 function createPokemonCard(pokemon) {
-    let div = document.createElement("div");
-    div.className = "card";
     let lista = ``;
 
     if (pokemon.abilities) {
@@ -39,7 +38,6 @@ function createPokemonCard(pokemon) {
         lista += `<li><strong>Movimientos:</strong> ${pokemon.moves.slice(0, 5).map(m => m.move.name).join(', ')}</li>`; // Mostrar solo los primeros 5 movimientos
     }
 
-
     let imageUrl = pokemon.sprites && pokemon.sprites.front_default ? pokemon.sprites.front_default : 'https://via.placeholder.com/150';
 
     div.innerHTML = `
@@ -50,27 +48,23 @@ function createPokemonCard(pokemon) {
             ${lista}
         </ul>
     </div>`;
-
-    cardsContainer.appendChild(div);
 }
 
 const handleSearch = (category, query) =>{
-    cardsContainer.innerHTML = "";
-
     if(category === "pokemon"){
-        getPokemonByName(query).then(result =>{
+        get(URLS.pokemon,query).then(result =>{
             if(result.name){
                 createPokemonCard(result, ["id","name","sprites"], "sprites.front_default", "name")           
             }
         }).catch(error=> console.log(error));
     } else if (category === "zwarrior"){
-        getZwarriorByName(query).then(result =>{
+        get(URLS.zwarriors,query).then(result =>{
             if(result[0].name){
                 createCard(result[0],["id", "name", "image", "deletedAt", "description"], "image", "name");
             }
         }).catch(error=> console.log(error));
     }else if (category === "rickmorty"){
-        getRickAndMortyById(query).then(result =>{
+        get(URLS.rickAndMorty,query).then(result =>{
             if(result.name){
                 createCard(result, ["id", "episode", "location", "origin", "image", "url", "created", "type"], "image", "name")
             }

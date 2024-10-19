@@ -3,17 +3,22 @@
     font-size: 2em
 }
 
-.cards-container {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-around;
+body{
+    height: 100vh;
     margin: 0;
     padding: 0;
-    height: auto;
 }
 
-/* Cada card ocupa 30% del ancho del contenedor, permitiendo 3 por fila */
+.cards-container {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
 .card {
+    align-self: center;
     flex-basis: 30%;
     margin: 10px;
     background-color: #f5f5f5;
@@ -22,7 +27,6 @@
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
-
 
 .card img {
     width: 100%;

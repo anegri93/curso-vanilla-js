@@ -1,4 +1,27 @@
-export const getPokemonByName = (name)=>{
+export const URLS = {
+    pokemon: "https://pokeapi.co/api/v2/pokemon/",
+    zwarriors: "https://dragonball-api.com/api/characters?name=",
+    rickAndMorty: "https://rickandmortyapi.com/api/character/"
+}
+export const get = (url, value) =>{
+    let result = new Promise((resolve, reject)=>{
+        if(value === undefined){
+            reject ({error:"Problema con el parámetro value"});
+        } else{
+            const requestOptions = {
+                method: "GET",
+                redirect: "follow"
+            };
+            fetch(`${url+value}`, requestOptions)
+                .then((response) => response.json())
+                .then((result) => resolve(result))
+                .catch((error) => console.error(error));
+        };      
+    });
+    return result;
+}
+
+/* export const getPokemonByName = (name)=>{
     let result = new Promise((resolve, reject)=>{
         if(name === undefined) {
             reject ({error:"No pasaste el nombre"});
@@ -11,7 +34,7 @@ export const getPokemonByName = (name)=>{
                 .then((response) => response.json())
                 .then((result) => resolve(result))
                 .catch((error) => console.error(error));
-        }
+        };
     })
     return result;
 }
@@ -52,4 +75,4 @@ export const getRickAndMortyById = (id) =>{
         }
     })
     return result;
-}
+} */
