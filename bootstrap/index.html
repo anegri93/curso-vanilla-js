@@ -40,14 +40,50 @@
               <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
             </li>
           </ul>
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+          <div class="d-flex gap-2">
+            <button class="btn btn-success">Login</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signUpForm">SignUp</button>
+          </div>
         </div>
       </div>
     </nav>
-
+    <!-- Modal -->
+    <div class="modal fade" id="signUpForm" tabindex="-1" aria-labelledby="signUpFormLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="signUpFormLabel">Registro</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="h6">Completa los datos para Registrarte</div>
+            <form>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1">
+              </div>
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Acepto los Términos.</label>
+              </div>
+              <div class="text-end">
+                <button type="submit" class="btn btn-primary">Crear</button>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+              </div>
+            </form>
+          </div>
+          <!-- <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div> -->
+        </div>
+      </div>
+    </div>
   <!-- CARROUSEL -->
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
