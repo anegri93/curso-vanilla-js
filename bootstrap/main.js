@@ -18,7 +18,20 @@ signUpBtn.onclick = (event) => {
 };
 
 let signUpCreateBtn = document.getElementById("signUpCreateBtn");
+let closeButton = document.getElementById("closeButton");
 let signUpAlert = document.getElementById("signUpAlert");
+
+const hideModal = () => {
+    //Hide Modal
+    var myModalEl = document.getElementById('signUpForm');
+    var modal = bootstrap.Modal.getInstance(myModalEl)
+    modal.hide();
+}
+
+closeButton.onclick = (event) =>{
+    event.preventDefault();
+    hideModal();
+}
 
 signUpCreateBtn.onclick = (event) => {
     event.preventDefault();
@@ -31,10 +44,9 @@ signUpCreateBtn.onclick = (event) => {
     if(alert !== ""){
         signUpAlert.innerHTML = alert;
         signUpAlert.style.display = "block";
-    }else{
+    }else{    
         //Create or Load User
-
-        if (document.getElementById("signUpCreateBtn").value === "Crear") {
+        if (document.getElementById("signUpCreateBtn").textContent === "Crear") {
             localSave("user", signUpForm);
             console.log("Guardado!");
         }else{
@@ -44,14 +56,11 @@ signUpCreateBtn.onclick = (event) => {
                 signUpAlert.style.display = "block";
                 return;
             } else {
+                console.log("Redireccionar a la página.");
                 
             }
         }
-
-        //Hide Modal
-        var myModalEl = document.getElementById('signUpForm');
-        var modal = bootstrap.Modal.getInstance(myModalEl)
-        modal.hide();
+        hideModal();
     }
 };
 
