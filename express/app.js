@@ -1,6 +1,8 @@
+let contacts = [];
 // Ejecutar cuando el DOM esté listo
 document.addEventListener("DOMContentLoaded", async () => {
-    const contacts = await fetchContacts();
+    contacts = await fetchContacts();
+    console.log("Contacts loaded:", contacts);  // Verifica si los contactos se cargaron correctamente
     updateContactCount(contacts.length);
     populateContactsTable(contacts);
     setupEventListeners();
@@ -9,7 +11,24 @@ document.addEventListener("DOMContentLoaded", async () => {
 // Configuración de eventos
 function setupEventListeners() {
     document.getElementById("saveContactBtn").addEventListener("click", handleSaveContact);
+    document.querySelector("input[type='search']").addEventListener("input", handleSearch);
 }
+
+// Función para manejar el evento de búsqueda
+function handleSearch() {
+    const searchTerm = document.querySelector("input[type='search']").value.toLowerCase().trim();
+    // Filtrar contactos que coinciden con el término de búsqueda
+    const filteredContacts = contacts.filter(contact =>
+        contact.firstname.toLowerCase().includes(searchTerm) ||
+        contact.lastName.toLowerCase().includes(searchTerm) ||
+        contact.emailAddress.toLowerCase().includes(searchTerm) ||
+        contact.age.toString().includes(searchTerm)
+    );
+    // Mostrar solo los contactos filtrados
+    populateContactsTable(filteredContacts);
+    updateContactCount(filteredContacts.length);
+}
+
 
 // Manejar el evento de guardar contacto
 async function handleSaveContact() {
