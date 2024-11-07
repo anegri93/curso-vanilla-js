@@ -1,5 +1,5 @@
 import { validateEmail } from "./utils.js";
-import { localSave, localLoad } from "./api.js"
+import { localSave, localLoad, signUp, logIn } from "./api.js"
 
 let signUpForm = {
     email: null,
@@ -47,10 +47,23 @@ signUpCreateBtn.onclick = (event) => {
     }else{    
         //Create or Load User
         if (document.getElementById("signUpCreateBtn").textContent === "Crear") {
-            localSave("user", signUpForm);
-            console.log("Guardado!");
+            //localSave("user", signUpForm);
+            signUp(signUpForm).then((result) =>{
+              console.log(result);
+              console.log("Guardado!");
+              //redireccionar
+              //document.body.innerHTML = `<div>Funciona!</div>`;
+              document.location = '../express/index.html';
+            }).catch((error)=>{
+                console.log(error);
+            })
         }else{
-            let user = localLoad("user");
+
+            logIn(signUpForm).then((result) => {
+                console.log(JSON.stringify(result.data));
+                
+            })
+            /* let user = localLoad("user");
             if (user === null) {
                 signUpAlert.innerHTML = "Este usuario no Existe!";
                 signUpAlert.style.display = "block";
@@ -58,7 +71,7 @@ signUpCreateBtn.onclick = (event) => {
             } else {
                 console.log("Redireccionar a la página.");
                 
-            }
+            } */
         }
         hideModal();
     }

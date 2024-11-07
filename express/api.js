@@ -30,7 +30,7 @@ async function saveContact(contact) {
 // Función para obtener un contacto por su ID
 async function getContactById(id) {
     try {
-        const response = await fetch(`${API_URL}/contact/id/${id}`);        
+        const response = await fetch(`${API_URL}/contact/search/${id}`);        
         if (response.ok) {
             return await response.json();
         } else {

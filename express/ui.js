@@ -25,7 +25,7 @@ function populateContactsTable(contacts) {
                     <i class="bi bi-pencil"></i> Editar
                 </button>
                 <button class="btn btn-danger btn-sm" onclick="deleteContact('${contact._id}')">
-                    <i class="bi bi-pencil"></i> Eliminar
+                    <i class="bi bi-trash"></i> Borrar
                 </button>
             </td>
         `;
@@ -36,11 +36,10 @@ function populateContactsTable(contacts) {
 // Cerrar el modal de creación de contacto
 function closeModal() {
     const modal = bootstrap.Modal.getInstance(document.getElementById("createContactModal"));
-    modal.hide();
+    if (modal) {
+        modal.hide();
+    }
 }
-
-
-// ui.js
 
 // Función para mostrar los detalles del contacto en el modal
 function showContactDetails(contact) {
