@@ -62,7 +62,7 @@ signUpCreateBtn.onclick = (event) => {
             logIn(signUpForm).then((result) => {
                 console.log(JSON.stringify(result.data));
                 
-            })
+            });
             /* let user = localLoad("user");
             if (user === null) {
                 signUpAlert.innerHTML = "Este usuario no Existe!";
