@@ -1,3 +1,10 @@
+import { fetchContacts, saveContact, getContactById, deleteContactById } from "./api.js";
+import { updateContactCount, populateContactsTable, closeModal, showContactDetails } from "../bootstrap/ui.js";
+import { loadToken } from "../bootstrap/api.js";
+
+console.log("Funciona!: ", loadToken());
+
+
 let contacts = [];
 // Ejecutar cuando el DOM esté listo
 document.addEventListener("DOMContentLoaded", async () => {

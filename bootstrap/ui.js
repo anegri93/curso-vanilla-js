@@ -1,11 +1,11 @@
 // Actualizar el conteo de contactos en el encabezado
-function updateContactCount(count) {
+export function updateContactCount(count) {
     const cantidadContactos = document.getElementById("cantidadContactos");
     cantidadContactos.innerHTML = "Contactos: " + count;
 }
 
 // Población de la tabla con contactos
-function populateContactsTable(contacts) {
+export function populateContactsTable(contacts) {
     const tableBody = document.getElementById("contactTableBody");
     tableBody.innerHTML = "";
 
@@ -34,7 +34,7 @@ function populateContactsTable(contacts) {
 }
 
 // Cerrar el modal de creación de contacto
-function closeModal() {
+export function closeModal() {
     const modal = bootstrap.Modal.getInstance(document.getElementById("createContactModal"));
     if (modal) {
         modal.hide();
@@ -42,7 +42,7 @@ function closeModal() {
 }
 
 // Función para mostrar los detalles del contacto en el modal
-function showContactDetails(contact) {
+export function showContactDetails(contact) {
     // Actualizar los elementos del modal con los datos del contacto
     document.getElementById("viewFirstName").textContent = contact.firstname;
     document.getElementById("viewLastName").textContent = contact.lastName;

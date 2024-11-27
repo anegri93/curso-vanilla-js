@@ -1,6 +1,6 @@
 const API_URL = "http://localhost:3000/api";
 
-async function fetchContacts() {
+export async function fetchContacts() {
     try {
         const response = await fetch(`${API_URL}/contacts`);
         return await response.json();
@@ -11,7 +11,7 @@ async function fetchContacts() {
 }
 
 // Función para agregar un nuevo contacto
-async function saveContact(contact) {
+export async function saveContact(contact) {
     try {
         const response = await fetch(`${API_URL}/contact/add`, {
             method: "POST",
@@ -28,7 +28,7 @@ async function saveContact(contact) {
 }
 
 // Función para obtener un contacto por su ID
-async function getContactById(id) {
+export async function getContactById(id) {
     try {
         const response = await fetch(`${API_URL}/contact/search/${id}`);        
         if (response.ok) {
@@ -45,7 +45,7 @@ async function getContactById(id) {
 
 
 // Función para eliminar un contacto por su ID
-async function deleteContactById(id) {
+export async function deleteContactById(id) {
     try {
         const response = await fetch(`${API_URL}/contact/delete/${id}`, {
             method: "DELETE"
